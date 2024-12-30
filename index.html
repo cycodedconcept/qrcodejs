@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QR Code with Logo Below</title>
+  <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+  <style>
+    #qrCodeContainer {
+      text-align: center;
+      margin-top: 20px;
+    }
+    #qrCodeContainer img {
+      margin-top: -30px;
+      width: 150px; /* Adjust logo size */
+      height: auto;
+    }
+  </style>
+</head>
+<body>
+  <h1>QR Code with Logo Below</h1>
+
+  <!-- Input for QR Code data -->
+  <label for="qrCodeValue">Enter Text or URL:</label>
+  <input type="text" id="qrCodeValue" placeholder="https://example.com">
+  <button onclick="generateQRCode()">Generate QR Code</button>
+
+  <br><br>
+
+  <!-- Container for the QR Code and Logo -->
+  <div id="qrCodeContainer">
+    <canvas id="qrCodeCanvas"></canvas>
+    <img id="logoImage" src="./images/Frame 149.png" alt="Logo">
+  </div>
+
+  <script>
+    async function generateQRCode() {
+      const value = document.getElementById('qrCodeValue').value || 'https://example.com';
+      const qrCodeCanvas = document.getElementById('qrCodeCanvas');
+
+      // Clear the canvas before generating a new QR code
+      const context = qrCodeCanvas.getContext('2d');
+      context.clearRect(0, 0, qrCodeCanvas.width, qrCodeCanvas.height);
+
+      // Generate the QR Code
+      try {
+        await QRCode.toCanvas(qrCodeCanvas, value, {
+          width: 300,
+          color: {
+            dark: '#003366', // Custom dark color (QR code modules)
+            light: '#ffffff' // Custom light color (background)
+          }
+        });
+      } catch (error) {
+        console.error('Error generating QR Code:', error);
+      }
+    }
+  </script>
+</body>
+</html>
